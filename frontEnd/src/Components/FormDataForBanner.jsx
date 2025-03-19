@@ -1,9 +1,10 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const FormDataForBanner = () => {
   const [bannerImagePreview, setBannerImagePreview] = useState(null);
   const [title, setTitle] = useState(""); // State to hold the title
-  const [bannerImage, setBannerImage] = useState(null); // State to hold the banner image file
+  const [image, setimage] = useState(null); // State to hold the banner image file
 
   // Handle title change
   const handleTitleChange = (event) => {
@@ -16,7 +17,7 @@ const FormDataForBanner = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file); // Generate a preview URL for the selected image
       setBannerImagePreview(imageUrl); // Set the preview URL
-      setBannerImage(file); // Store the file in the state
+      setimage(file); // Store the file in the state
     }
   };
 
@@ -25,17 +26,24 @@ const FormDataForBanner = () => {
     event.preventDefault();
 
     // Check if title and banner image are provided
-    if (!title || !bannerImage) {
+    if (!title || !image) {
       alert("Please provide both title and banner image.");
       return;
     }
 
     const formData = {
       title,
-      bannerImage,
+      image,
     };
 
     console.log("Form Data:", formData);
+    const res = axios.post("http://localhost:3001/api/v1/blog/create", formData ,{
+
+      headers: {
+        'Content-Type': 'multipart/form-data',  // Specify content type for form data
+      }
+    } );
+    console.log(res , "response")
     // Here, you can send the formData to an API or perform other actions
   };
 
