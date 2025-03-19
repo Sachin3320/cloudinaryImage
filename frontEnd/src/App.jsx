@@ -4,7 +4,7 @@ import FormDataForBanner from './Components/FormDataForBanner.jsx'
 
 const App = () => {
   return (
-    <div className="" >
+    <div className="w-full" >
       <FormDataForBanner/>
     </div>
   )
